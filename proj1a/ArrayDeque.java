@@ -104,6 +104,7 @@ public class ArrayDeque<Type> {
         nextFirst += 1;
         nextFirst = update(nextFirst);
         size -=1;
+        truncate();
         return removed;
     }
 

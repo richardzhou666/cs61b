@@ -100,7 +100,7 @@ public class ArrayDeque<Type> {
         if (isEmpty()){
             return null;
         }
-        Type removed = items[nextFirst+1];
+        Type removed = items[update(nextFirst+1)];
         nextFirst += 1;
         nextFirst = update(nextFirst);
         size -=1;
@@ -111,7 +111,7 @@ public class ArrayDeque<Type> {
         if (isEmpty()) {
             return null;
         }
-        Type removed = items[nextLast-1];
+        Type removed = items[update(nextLast-1)];
         nextLast -= 1;
         nextLast = update(nextLast);
         size -= 1;

@@ -21,7 +21,7 @@ public class LinkedListDeque<Type>{
         sentinel = new Node(null,  null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
-        size = 0;
+        size = 0;git
     }
 
     // Create list

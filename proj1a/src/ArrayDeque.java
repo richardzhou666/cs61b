@@ -5,7 +5,7 @@ public class ArrayDeque<Type> {
     private int nextFirst;
 
     public ArrayDeque() {
-        Type[] items = (Type []) new Object[8];
+        items = (Type []) new Object[8];
         size = 0;
         nextFirst = 4;
         nextLast = 5;
@@ -15,7 +15,7 @@ public class ArrayDeque<Type> {
         return items.length;
     }
 
-    private void resize(int capacity){
+    public void resize(int capacity){
         Type[] temp =(Type []) new Object[capacity];
         if (update(nextLast -1)> update(nextFirst+1)){
             System.arraycopy(items,update(nextFirst+1),temp,
@@ -81,7 +81,7 @@ public class ArrayDeque<Type> {
 
     public Type get(int x){
         if (x > size){
-            System.out.println("Index Out of Bounds!");
+            return null;
         }
         int index = nextFirst +1 + x;
         index = update(index);
@@ -115,6 +115,7 @@ public class ArrayDeque<Type> {
         nextLast -= 1;
         nextLast = update(nextLast);
         size -= 1;
+        truncate();
         return removed;
     }
 }

@@ -21,7 +21,7 @@ public class LinkedListDeque<Type>{
         sentinel = new Node(null,  null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
-        size = 0;git
+        size = 0;
     }
 
     // Create list
@@ -44,7 +44,7 @@ public class LinkedListDeque<Type>{
         return sentinel.next.item;
     }
 
-    public Object get(int index){
+    public Type get(int index){
         int i = 0;
         Node p = sentinel;
         if (index > size - 1) {
@@ -75,7 +75,7 @@ public class LinkedListDeque<Type>{
         return size;
     }
 
-    public Object removeFirst(){
+    public Type removeFirst(){
         if (this.isEmpty()) {
             return null;
         }
@@ -86,7 +86,7 @@ public class LinkedListDeque<Type>{
         return temp;
     }
 
-    public Object removeLast(){
+    public Type removeLast(){
         if (this.isEmpty()) {
             return null;
         }

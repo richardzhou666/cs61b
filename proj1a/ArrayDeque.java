@@ -1,6 +1,6 @@
 public class ArrayDeque<Type> {
     private int size;
-    private Object[] items;
+    private Type[] items;
     private int nextLast;
     private int nextFirst;
 
@@ -50,7 +50,7 @@ public class ArrayDeque<Type> {
         return index;
     }
 
-    public void addFirst(int x){
+    public void addFirst(Type x){
         if (size == items.length) {
             resize(size*2);
         }
@@ -60,7 +60,7 @@ public class ArrayDeque<Type> {
         nextFirst = update(nextFirst);
      }
 
-    public void addLast(int x) {
+    public void addLast(Type x) {
          if (size == items.length) {
             resize(size*2);
         }
@@ -79,7 +79,7 @@ public class ArrayDeque<Type> {
         }
     }
 
-    public Object get(int x){
+    public Type get(int x){
         if (x > size){
             System.out.println("Index Out of Bounds!");
         }
@@ -96,22 +96,22 @@ public class ArrayDeque<Type> {
         return size == 0;
     }
 
-    public Object removeFirst(){
+    public Type removeFirst(){
         if (isEmpty()){
             return null;
         }
-        Object removed = items[nextFirst+1];
+        Type removed = items[nextFirst+1];
         nextFirst += 1;
         nextFirst = update(nextFirst);
         size -=1;
         return removed;
     }
 
-    public Object removeLast(){
+    public Type removeLast(){
         if (isEmpty()) {
             return null;
         }
-        Object removed = items[nextLast-1];
+        Type removed = items[nextLast-1];
         nextLast -= 1;
         nextLast = update(nextLast);
         size -= 1;

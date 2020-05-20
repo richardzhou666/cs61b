@@ -14,7 +14,7 @@ public class LinkedListDeque<Type>{
  * size is always the total number of items */
 
     private int size;
-    final Node sentinel;
+    private Node sentinel;
 
     /* Create an empty list*/
     public LinkedListDeque() {
@@ -95,8 +95,12 @@ public class LinkedListDeque<Type>{
             return null;
         }
         Type temp = getFirst();
-        sentinel.next.prev = sentinel.prev;
+        // head = head.next
+        // make the second item as head
         sentinel.next = sentinel.next.next;
+        // head.prev = sentinel
+        // link the new head to sentinel
+        sentinel.next.prev = sentinel;
         size -=1;
         return temp;
     }
@@ -106,8 +110,10 @@ public class LinkedListDeque<Type>{
             return null;
         }
         Type temp = getLast();
-        sentinel.prev.next = sentinel.next;
+        // tail = tail.prev
         sentinel.prev = sentinel.prev.prev;
+        // tail.next = sentinel
+        sentinel.prev.next = sentinel;
         size -=1;
         return temp;
     }

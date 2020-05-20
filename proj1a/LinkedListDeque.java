@@ -33,7 +33,6 @@ public class LinkedListDeque<Type>{
         size = 1;
     }
 
-
     public void addFirst(Type x) {
         Node first = new Node(sentinel, x , sentinel.next);
         sentinel.next.prev = first; // set the back pointer of the second item to first item
@@ -46,6 +45,19 @@ public class LinkedListDeque<Type>{
     }
 
     public Type get(int index){
+        int i = 0;
+        Node p = sentinel;
+        if (index > size - 1) {
+            return null;
+        }
+        while (i <= index) {
+            p = p.next;
+            i = i+1;
+        }
+        return p.item;
+    }
+
+    public Type getRecursive(int index){
         int i = 0;
         Node p = sentinel;
         if (index > size - 1) {

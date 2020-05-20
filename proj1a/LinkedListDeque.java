@@ -1,9 +1,9 @@
-public class LinkedListDeque<Type>{
-    public class Node{
+public class LinkedListDeque<T>{
+    private class Node{
         Node prev;
-        Type item;
+        T item;
         Node next;
-        Node(Node p, Type i, Node n) {
+        Node(Node p, T i, Node n) {
             prev = p;
             item = i;
             next = n;
@@ -14,7 +14,7 @@ public class LinkedListDeque<Type>{
  * size is always the total number of items */
 
     private int size;
-    private Node sentinel;
+    private final Node sentinel;
 
     /* Create an empty list*/
     public LinkedListDeque() {
@@ -25,7 +25,7 @@ public class LinkedListDeque<Type>{
     }
 
     // Create list
-    public LinkedListDeque(Type x) {
+    public LinkedListDeque(T x) {
         sentinel = new Node(null, null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
@@ -40,22 +40,22 @@ public class LinkedListDeque<Type>{
         size = 0;
 
         for (int i=0; i < other.size(); i ++) {
-            addLast((Type) other.get(i));
+            addLast((T) other.get(i));
         }
     }
 
-    public void addFirst(Type x) {
+    public void addFirst(T x) {
         Node first = new Node(sentinel, x , sentinel.next);
         sentinel.next.prev = first; // set the back pointer of the second item to first item
         sentinel.next = first; // set the forward pointer from sentinel to first item
         size += 1;
     }
 
-    public Type getFirst() {
+    private T getFirst() {
         return sentinel.next.item;
     }
 
-    public Type get(int index){
+    public T get(int index){
         int i = 0;
         Node p = sentinel;
         if (index > size - 1) {
@@ -69,11 +69,11 @@ public class LinkedListDeque<Type>{
     }
 
     // WIP
-    public Type getRecursive(int index){
+    public T getRecursive(int index){
         return get(index);
     }
 
-    public void addLast(Type x) {
+    public void addLast(T x) {
         // add value between last of list and sentinel
         Node last = new Node(sentinel.prev, x , sentinel);
         // point forward pointer from second to last to last
@@ -83,7 +83,7 @@ public class LinkedListDeque<Type>{
         size += 1;
     }
 
-    public Type getLast(){
+    public T getLast(){
         return sentinel.prev.item;
     }
 
@@ -91,11 +91,11 @@ public class LinkedListDeque<Type>{
         return size;
     }
 
-    public Type removeFirst(){
+    public T removeFirst(){
         if (this.isEmpty()) {
             return null;
         }
-        Type temp = getFirst();
+        T temp = getFirst();
         // head = head.next
         // make the second item as head
         sentinel.next = sentinel.next.next;
@@ -106,11 +106,11 @@ public class LinkedListDeque<Type>{
         return temp;
     }
 
-    public Type removeLast(){
+    public T removeLast(){
         if (this.isEmpty()) {
             return null;
         }
-        Type temp = getLast();
+        T temp = getLast();
         // tail = tail.prev
         sentinel.prev = sentinel.prev.prev;
         // tail.next = sentinel
@@ -131,7 +131,7 @@ public class LinkedListDeque<Type>{
         }
     }
 
-    public void ReversePrint() {
+    private void ReversePrint() {
         Node p = sentinel.prev;
         for (int i =1; i <= size ; i++) {
             System.out.print(p.item + " ");

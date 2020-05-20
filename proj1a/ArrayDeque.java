@@ -1,11 +1,11 @@
-public class ArrayDeque<Type> {
+public class ArrayDeque<T> {
     private int size;
-    private Type[] items;
+    private T[] items;
     private int nextLast;
     private int nextFirst;
 
     public ArrayDeque() {
-        items = (Type []) new Object[8];
+        items = (T []) new Object[8];
         size = 0;
         nextFirst = 4;
         nextLast = 5;
@@ -16,10 +16,10 @@ public class ArrayDeque<Type> {
     }
 
     public void resize(int capacity){
-        Type[] temp =(Type []) new Object[capacity];
-        if (update(nextLast -1)> update(nextFirst+1)){
+        T[] temp =(T []) new Object[capacity];
+        if (update(nextLast -1)>= update(nextFirst+1)){
             System.arraycopy(items,update(nextFirst+1),temp,
-                    0,update(nextLast)-update(nextFirst+1));
+                    0,update(nextLast-1)-update(nextFirst+1)+1);
         }
         else {
             System.arraycopy(items, update(nextFirst + 1), temp,
@@ -50,21 +50,21 @@ public class ArrayDeque<Type> {
         return index;
     }
 
-    public void addFirst(Type x){
+    public void addFirst(T x){
         if (size == items.length) {
             resize(size*2);
         }
-        items[nextFirst] =x;
+        items[update(nextFirst)] =x;
         nextFirst -=1;
         size += 1;
         nextFirst = update(nextFirst);
      }
 
-    public void addLast(Type x) {
+    public void addLast(T x) {
          if (size == items.length) {
             resize(size*2);
         }
-        items[nextLast] =x;
+        items[update(nextLast)] =x;
         nextLast +=1;
         size += 1;
         nextLast = update(nextLast);
@@ -79,7 +79,7 @@ public class ArrayDeque<Type> {
         }
     }
 
-    public Type get(int x){
+    public T get(int x){
         if (x > size){
             return null;
         }
@@ -96,25 +96,27 @@ public class ArrayDeque<Type> {
         return size == 0;
     }
 
-    public Type removeFirst(){
+    public T removeFirst(){
         if (isEmpty()){
             return null;
         }
-        Type removed = items[update(nextFirst+1)];
+        T removed = items[update(nextFirst+1)];
         nextFirst += 1;
         nextFirst = update(nextFirst);
         size -=1;
+        truncate();
         return removed;
     }
 
-    public Type removeLast(){
+    public T removeLast(){
         if (isEmpty()) {
             return null;
         }
-        Type removed = items[update(nextLast-1)];
+        T removed = items[update(nextLast-1)];
         nextLast -= 1;
         nextLast = update(nextLast);
         size -= 1;
+        truncate();
         return removed;
     }
 }

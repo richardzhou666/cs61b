@@ -33,6 +33,7 @@ public class LinkedListDeque<Type>{
         size = 1;
     }
 
+
     public void addFirst(Type x) {
         Node first = new Node(sentinel, x , sentinel.next);
         sentinel.next.prev = first; // set the back pointer of the second item to first item

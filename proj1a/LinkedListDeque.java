@@ -68,6 +68,7 @@ public class LinkedListDeque<Type>{
         return p.item;
     }
 
+    // WIP
     public Type getRecursive(int index){
         return get(index);
     }

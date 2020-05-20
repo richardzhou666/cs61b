@@ -104,7 +104,6 @@ public class ArrayDeque<Type> {
         nextFirst += 1;
         nextFirst = update(nextFirst);
         size -=1;
-        truncate();
         return removed;
     }
 
@@ -116,7 +115,6 @@ public class ArrayDeque<Type> {
         nextLast -= 1;
         nextLast = update(nextLast);
         size -= 1;
-        truncate();
         return removed;
     }
 }

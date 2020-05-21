@@ -13,11 +13,11 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
-        if (word == null || word.isBlank()) {
+        if (word == null) {
             return false;
         }
         Deque<Character> input = wordToDeque(word);
-        if (input.size() == 1) {
+        if (input.size() == 1 || word.isBlank()) {
             return true;
         }
         if (checker(input)) {

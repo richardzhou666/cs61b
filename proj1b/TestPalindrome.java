@@ -25,9 +25,9 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("a"));
         assertTrue(palindrome.isPalindrome("deleveled"));
         assertFalse(palindrome.isPalindrome("richard"));
-        assertFalse(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome(""));
         assertFalse(palindrome.isPalindrome(null));
-        assertFalse(palindrome.isPalindrome(" "));
+        assertTrue(palindrome.isPalindrome(" "));
         assertFalse(palindrome.isPalindrome("amy"));
         assertFalse(palindrome.isPalindrome("asdfoilkhasdflkas"));
     }

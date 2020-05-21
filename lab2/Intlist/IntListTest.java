@@ -58,6 +58,15 @@ public class IntListTest {
     }
 
     @Test
+    public void testDcatenate2() {
+        IntList A = IntList.of(1, 2, 3,4,5,6);
+        IntList B = IntList.of(7,8,9);
+        IntList exp = IntList.of(1, 2, 3, 4, 5, 6,7,8,9);
+        assertEquals(exp, IntList.dcatenate(A, B));
+        assertEquals(IntList.of(1, 2, 3, 4, 5, 6,7,8,9), A);
+    }
+
+    @Test
     public void testCatenate() {
         IntList A = IntList.of(1, 2, 3);
         IntList B = IntList.of(4, 5, 6);
@@ -66,4 +75,12 @@ public class IntListTest {
         assertEquals(IntList.of(1, 2, 3), A);
     }
 
+    @Test
+    public void testCatenate2() {
+        IntList A = IntList.of(1, 2, 3,4,5,6,7);
+        IntList B = IntList.of(8,9,10);
+        IntList exp = IntList.of(1, 2, 3, 4, 5, 6,7,8,9,10);
+        assertEquals(exp, IntList.catenate(A, B));
+        assertEquals(IntList.of(1, 2, 3,4,5,6,7), A);
+    }
 }

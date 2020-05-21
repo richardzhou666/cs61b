@@ -3,8 +3,12 @@
  * feature work.
  */
 public class DebugExercise1 {
+    /** Java will always round down when doing integer division
+     *  For example, 3/4 will return 0
+     *  Has to make any one of them float / double
+     */
     public static int divideThenRound(int top, int bottom) {
-        int quotient = top / bottom;
+        float quotient = top / (float) bottom;
         int result = Math.round(quotient);
         return result;
     }

@@ -7,7 +7,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Index for the next enqueue. */
     private int last;
     /* Array for storing the buffer data. */
-    private T[] rb;
+    private final T[] rb;
 
     // Nested class
     private class KeyIterator implements Iterator<T> {

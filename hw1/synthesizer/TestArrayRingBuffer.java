@@ -23,6 +23,7 @@ public class TestArrayRingBuffer {
         assertEquals(3, arb.fillCount());
         arb.dequeue();
         assertEquals(2, arb.fillCount());
+        assertEquals(3, (int) arb.dequeue());
     }
 
     @Rule

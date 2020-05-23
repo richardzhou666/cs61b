@@ -5,7 +5,7 @@ import synthesizer.ArrayRingBuffer;
 import synthesizer.BoundedQueue;
 
 //Make sure this class is public
-public class GuitarString<T> extends ArrayRingBuffer<T> implements BoundedQueue<T> {
+public class GuitarString extends ArrayRingBuffer<Double> implements BoundedQueue<Double> {
     /** Constants. Do not change. In case you're curious, the keyword final means
      * the values cannot be changed at runtime. We'll discuss this and other topics
      * in lecture on Friday. */
@@ -23,7 +23,10 @@ public class GuitarString<T> extends ArrayRingBuffer<T> implements BoundedQueue<
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
         this.capacity = (int) Math.round(SR / frequency);
-        buffer = (BoundedQueue<Double>) new ArrayRingBuffer<T>(this.capacity);
+        buffer = (BoundedQueue<Double>) new ArrayRingBuffer<Double>(this.capacity);
+        for (int i = 0; i < buffer.capacity(); i++) {
+            buffer.enqueue(0.0);
+        }
     }
 
 
@@ -59,6 +62,6 @@ public class GuitarString<T> extends ArrayRingBuffer<T> implements BoundedQueue<
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return 0;
+        return buffer.peek();
     }
 }

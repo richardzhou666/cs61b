@@ -55,9 +55,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Bound
     }
 
     private int update(int index){
-        if (index <0){
-            index =  this.capacity-1;
-        }
+//        if (index <0){
+//            index =  this.capacity-1;
+//        }
         if (index >= this.capacity){
             index -= this.capacity;
         }
@@ -105,6 +105,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Bound
     @Override
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
+        if (isEmpty()) {
+            throw new RuntimeException("Ring buffer underflow");
+        }
         return rb[first];
     }
     // TODO: When you get to part 5, implement the needed code to support iteration.

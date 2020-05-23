@@ -47,6 +47,20 @@ public class TestArrayRingBuffer {
         arb.dequeue();
         arb.dequeue();
     }
+    @Test
+    public void someTest2() {
+        ArrayRingBuffer<Integer> arb = new ArrayRingBuffer<>(4);
+        arb.enqueue(2);
+        arb.enqueue(3);
+        arb.enqueue(4);
+        arb.dequeue();
+        arb.dequeue();
+        arb.enqueue(5);
+        int result = arb.peek();
+        assertEquals(4, result);
+    }
+
+
 
     // Uncomment to test iterator (change to private first)
 //    @Test

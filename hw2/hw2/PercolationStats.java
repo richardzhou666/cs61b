@@ -1,4 +1,5 @@
 package hw2;
+import java.util.ArrayList;
 import java.util.Random;
 import edu.princeton.cs.introcs.StdRandom;
 
@@ -11,11 +12,12 @@ public class PercolationStats {
         x = new int[T];
         sum = 0;
         this.T = T;
+        ArrayList<Percolation> pList = new ArrayList<>(T);
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("N or T should not be less than 0!");
         }
-        Percolation a = pf.make(N);
         for (int i = 0; i < T; i ++) {
+            Percolation a = pf.make(N);
             while (!a.percolates()) {
                 int randID = StdRandom.uniform(N * N - 1);
                 if (!a.isOpen(randID)) {
@@ -26,6 +28,7 @@ public class PercolationStats {
             }
             x[i] = a.numberOfOpenSites();
             sum += a.numberOfOpenSites();
+            pList.add(a);
         }
     }
 
@@ -51,7 +54,7 @@ public class PercolationStats {
 
     public static void main(String[] args) {
         PercolationFactory b = new PercolationFactory();
-        PercolationStats a = new PercolationStats(3, 8000, b);
+        PercolationStats a = new PercolationStats(3, 8, b);
         System.out.println(a.mean());
         System.out.println(a.stddev());
         System.out.println(a.confidenceHigh());

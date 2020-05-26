@@ -2,22 +2,34 @@ package hw2;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-public class Percolation extends WeightedQuickUnionUF{
+public class Percolation {
     private final boolean[] x;
     private final int N;
-    private int open_count;
+    private int openCount;
+    private final WeightedQuickUnionUF xy;
 
     // Constructor: Create empty N x N array
     public Percolation(int N) {
-        super(N * N);
+        if (N < 0) {
+            throw new IllegalArgumentException("N should be positive!");
+        }
         this.N = N;
         x = new boolean[N * N];
-        open_count = 0;
+        xy = new WeightedQuickUnionUF(N * N);
+        openCount = 0;
     }
 
     // Convert two-d array into one-d
     private int xytox(int row, int col) {
         return N * row + col;
+    }
+
+    private boolean unionChecker(int i, int j) {
+        if (i % N == 0 && i - j == 1) {
+            return false;
+        } else {
+            return i % N != N - 1 || j - i != 1;
+        }
     }
 
     public void open(int row, int col) {
@@ -26,17 +38,18 @@ public class Percolation extends WeightedQuickUnionUF{
         }
         int id = xytox(row, col);
         int[] neighbor = {id - 1, id + 1, id - N, id + N};
-        for (int item: neighbor)
+        for (int item: neighbor) {
             if (item < N * N && item > 0) {
-                if (isOpen(item)) {
-                    union(item, id);
+                if (isOpen(item) && unionChecker(id, item)) {
+                    xy.union(id, item);
                 }
             }
+        }
         x[id] = true;
-        open_count += 1;
+        openCount += 1;
     }
 
-    boolean isOpen(int id) {
+    private boolean isOpen(int id) {
         return x[id];
     }
 
@@ -46,13 +59,13 @@ public class Percolation extends WeightedQuickUnionUF{
     }
 
     public int numberOfOpenSites() {
-        return open_count;
+        return openCount;
     }
 
     public boolean isFull(int row, int col) {
-        for (int i = 0; i < N; i ++) {
+        for (int i = 0; i < N; i++) {
             if (isOpen(row, col)) {
-                if (connected(xytox(row, col), i)) {
+                if (xy.connected(xytox(row, col), i)) {
                     return true;
                 }
             }
@@ -61,7 +74,7 @@ public class Percolation extends WeightedQuickUnionUF{
     }
 
     public boolean percolates() {
-        for (int i = 0; i < N; i ++) {
+        for (int i = 0; i < N; i++) {
             if (isFull(N - 1, i)) {
                 return true;
             }

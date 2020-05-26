@@ -1,6 +1,5 @@
 package hw2;
 import java.util.ArrayList;
-import java.util.Random;
 import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
@@ -16,13 +15,13 @@ public class PercolationStats {
         sum = 0;
         this.T = T;
         ArrayList<Percolation> pList = new ArrayList<>(T);
-        for (int i = 0; i < T; i ++) {
+        for (int i = 0; i < T; i++) {
             Percolation a = pf.make(N);
             while (!a.percolates()) {
                 int randID = StdRandom.uniform(N * N - 1);
-                if (!a.isOpen(randID)) {
-                    int row = randID / N;
-                    int col = randID % N;
+                int row = randID / N;
+                int col = randID % N;
+                if (!a.isOpen(row, col)) {
                     a.open(row, col);
                 }
             }
@@ -41,15 +40,15 @@ public class PercolationStats {
         for (double item: x) {
             sum2 += (item - mean()) * (item - mean());
         }
-        return sum2 / (T - 1);
+        return Math.sqrt(sum2 / (T - 1));
     }
 
     public double confidenceLow() {
-        return mean() - 1.96 * Math.sqrt(stddev()) / Math.sqrt(T);
+        return mean() - 1.96 * stddev() / Math.sqrt(T);
     }
 
     public double confidenceHigh() {
-        return mean() + 1.96 * Math.sqrt(stddev()) / Math.sqrt(T);
+        return mean() + 1.96 * stddev() / Math.sqrt(T);
     }
 
     public static void main(String[] args) {

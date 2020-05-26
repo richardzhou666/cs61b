@@ -64,7 +64,7 @@ public class Percolation {
 
     public boolean isFull(int row, int col) {
         for (int i = 0; i < N; i++) {
-            if (isOpen(row, col)) {
+            if (isOpen(0, i)) {
                 if (xy.connected(xytox(row, col), i)) {
                     return true;
                 }

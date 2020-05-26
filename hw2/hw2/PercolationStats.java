@@ -1,5 +1,6 @@
 package hw2;
 import java.util.Random;
+import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
     private final int[] x;
@@ -7,7 +8,7 @@ public class PercolationStats {
     private final int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        x = new int[N * N];
+        x = new int[T];
         sum = 0;
         this.T = T;
         if (N <= 0 || T <= 0) {
@@ -16,11 +17,10 @@ public class PercolationStats {
         Percolation a = pf.make(N);
         for (int i = 0; i < T; i ++) {
             while (!a.percolates()) {
-                Random rand = new Random();
-                int randID = rand.nextInt(N * N);
+                int randID = StdRandom.uniform(N * N - 1);
                 if (!a.isOpen(randID)) {
-                    int row = randID / 5;
-                    int col = randID % 5;
+                    int row = randID / N;
+                    int col = randID % N;
                     a.open(row, col);
                 }
             }
@@ -47,5 +47,13 @@ public class PercolationStats {
 
     public double confidenceHigh() {
         return mean() + 1.96 * Math.sqrt(stddev()) / Math.sqrt(T);
+    }
+
+    public static void main(String[] args) {
+        PercolationFactory b = new PercolationFactory();
+        PercolationStats a = new PercolationStats(3, 8000, b);
+        System.out.println(a.mean());
+        System.out.println(a.stddev());
+        System.out.println(a.confidenceHigh());
     }
 }

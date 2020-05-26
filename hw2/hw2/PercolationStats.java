@@ -17,9 +17,8 @@ public class PercolationStats {
         ArrayList<Percolation> pList = new ArrayList<>(T);
         for (int i = 0; i < T; i++) {
             Percolation a = pf.make(N);
-            StdRandom.setSeed(i);
             while (!a.percolates()) {
-                int randID = StdRandom.uniform(N * N - 1);
+                int randID = StdRandom.uniform(N * N);
                 int row = randID / N;
                 int col = randID % N;
                 if (!a.isOpen(row, col)) {

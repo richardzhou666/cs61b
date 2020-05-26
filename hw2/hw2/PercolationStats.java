@@ -4,18 +4,18 @@ import java.util.Random;
 import edu.princeton.cs.introcs.StdRandom;
 
 public class PercolationStats {
-    private final int[] x;
-    private int sum;
+    private final double[] x; // fraction of open sites
+    private double sum;
     private final int T;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        x = new int[T];
-        sum = 0;
-        this.T = T;
-        ArrayList<Percolation> pList = new ArrayList<>(T);
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException("N or T should not be less than 0!");
         }
+        x = new double[T];
+        sum = 0;
+        this.T = T;
+        ArrayList<Percolation> pList = new ArrayList<>(T);
         for (int i = 0; i < T; i ++) {
             Percolation a = pf.make(N);
             while (!a.percolates()) {
@@ -26,22 +26,22 @@ public class PercolationStats {
                     a.open(row, col);
                 }
             }
-            x[i] = a.numberOfOpenSites();
-            sum += a.numberOfOpenSites();
+            x[i] = (double) a.numberOfOpenSites() / (N * N);
+            sum += (double) a.numberOfOpenSites() / (N * N);
             pList.add(a);
         }
     }
 
     public double mean() {
-        return (double) sum / T;
+        return sum / T;
     }
 
     public double stddev() {
-        int sum2 = 0;
-        for (int item: x) {
-            sum += (item - mean()) * (item - mean());
+        double sum2 = 0;
+        for (double item: x) {
+            sum2 += (item - mean()) * (item - mean());
         }
-        return  (double) sum / (T - 1);
+        return sum2 / (T - 1);
     }
 
     public double confidenceLow() {
@@ -54,9 +54,10 @@ public class PercolationStats {
 
     public static void main(String[] args) {
         PercolationFactory b = new PercolationFactory();
-        PercolationStats a = new PercolationStats(3, 8, b);
+        PercolationStats a = new PercolationStats(9, 1000, b);
         System.out.println(a.mean());
         System.out.println(a.stddev());
         System.out.println(a.confidenceHigh());
+        System.out.println(a.confidenceLow());
     }
 }

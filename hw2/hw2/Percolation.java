@@ -39,7 +39,7 @@ public class Percolation {
         int id = xytox(row, col);
         int[] neighbor = {id - 1, id + 1, id - N, id + N};
         for (int item: neighbor) {
-            if (item < N * N && item > 0) {
+            if (item < N * N && item >= 0) {
                 if (isOpen(item) && unionChecker(id, item)) {
                     xy.union(id, item);
                 }

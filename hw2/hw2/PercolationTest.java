@@ -19,5 +19,11 @@ public class PercolationTest {
         assertTrue(a.isOpen(0, 3));
         assertTrue(a.isFull(0, 3));
         assertTrue(a.isFull(1, 3));
+        a.open(0, 0);
+        assertTrue(a.isFull(0, 0));
+        a.open(2, 0);
+        a.open(1, 0);
+        assertTrue(a.isOpen(1, 0));
+        assertTrue(a.isFull(1, 0));
     }
 }

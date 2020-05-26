@@ -50,13 +50,4 @@ public class PercolationStats {
     public double confidenceHigh() {
         return mean() + 1.96 * stddev() / Math.sqrt(T);
     }
-
-    public static void main(String[] args) {
-        PercolationFactory b = new PercolationFactory();
-        PercolationStats a = new PercolationStats(9, 1000, b);
-        System.out.println(a.mean());
-        System.out.println(a.stddev());
-        System.out.println(a.confidenceHigh());
-        System.out.println(a.confidenceLow());
-    }
 }
